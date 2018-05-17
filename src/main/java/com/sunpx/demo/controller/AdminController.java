@@ -3,7 +3,10 @@ package com.sunpx.demo.controller;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
 
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/5/7 0007.
@@ -68,5 +71,37 @@ public class AdminController extends Controller {
 
        //renderFile(file)
 
+    }
+
+    public void testExcel() {
+
+        List<AllThreecustomer> cusomerList = new ArrayList<AllThreecustomer>();
+        AllThreecustomer th = null;
+        for (int i = 0; i < 80000; i++) {
+            th = new AllThreecustomer();
+            th.setMobile("mobile" + i);
+            th.setCustomer("customer" + i);
+            th.setMon("mon" + i);
+            th.setMobile("mon" + i);
+            th.setNewousers("Newousers" + i);
+            cusomerList.add(th);
+        }
+
+
+        //文件名
+        String filename = "结算明细";
+
+        try
+
+        {
+            String[] strMeaning = {"手机号", "客户", "月份", "新老用户", "钱数"};
+            String[] strName = {"mobile", "customer", "mon", "newousers", "monery"};
+            ExportExcel.exportExcel(strMeaning, strName, cusomerList, filename, getResponse());
+        } catch (
+                Exception e)
+
+        {
+            e.printStackTrace();
+        }
     }
 }
