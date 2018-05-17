@@ -5,12 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>semantic ui test page.</title>
-    <link href="../static/js/plugins/semantic/semantic.css">
-    <script src="js/jquery-2.2.1.min.js"></script>
-    <script src="../static/js/plugins/semantic/semantic.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 </head>
 <body>
 
+<div id="qudao">
 
+
+</div>
+<script type="text/javascript">
+
+
+    $(function(){
+        var qudaoList = [1,2,3,4,5,6,7,8,9,10];
+        var inputCheckBoxHtml = "";
+
+        for(var i = 0; i < qudaoList.length; i++){
+            inputCheckBoxHtml += '<input type="checkbox" name="channel" value="'+qudaoList[i]+'">';
+            inputCheckBoxHtml += "渠道" + qudaoList[i];
+        }
+        inputCheckBoxHtml += '<input type="checkbox" id="selectAll">全选\t';
+        inputCheckBoxHtml += '<input type="checkbox" id="disSelectAll">反选\t';
+        inputCheckBoxHtml += '<input type="button" value="提交" id="submitCheckedBtn">';
+
+        $("#qudao").append(inputCheckBoxHtml);
+
+
+        $("#submitCheckedBtn").click(function(){
+            var inputCheckedArray = [];
+            var inputArray = $("#qudao input[name='channel']").toArray();
+            for(var t = 0; t < inputArray.length; t++){
+                if(inputArray[t].checked)
+                    inputCheckedArray.push($(inputArray[t]).val())
+            }
+
+            alert("当前选中值:"+inputCheckedArray);
+        });
+        //select all click fun.
+        $("#selectAll").click(function(){
+            var selectAllState = $('#selectAll').is(':checked');
+            if(selectAllState){
+                $("#qudao input[name='channel']").prop("checked","checked");
+            }else{
+                $("#qudao input[name='channel']").removeAttr("checked");
+            }
+        });
+
+        //反选
+        $("#disSelectAll").click(function(){
+            $("#qudao input[name='channel']").each(function(){
+                this.checked=!this.checked;
+            });
+        });
+    });
+
+
+</script>
 </body>
 </html>
